@@ -59,8 +59,8 @@ exports.convert = function(options, callback) {
 	if (options.src === undefined || options.dst === undefined)return callback(error_messages['path']);
 	options.src = quoted_name(options.src);
 	options.dst = quoted_name(options.dst);
-	if (options.quality === undefined) imcmd = 'convert -background white -flatten ' + options.src + ' ' + options.dst;
-	else imcmd = 'convert -background white -flatten ' + options.src + ' -quality ' + options.quality + ' ' + options.dst;
+	if (options.quality === undefined) imcmd = 'convert ' + options.src + ' -background white -flatten  ' + options.dst;
+	else imcmd = 'convert ' + options.src + ' -background white -flatten  -quality ' + options.quality + ' ' + options.dst;
 	child = exec(imcmd, function(err, stdout, stderr) {
 		if (err) return callback(err);
 		info(options.dst, callback);
@@ -74,8 +74,8 @@ exports.resize = function(options, callback) {
 	options.height = options.height || options.width;
 	options.src = quoted_name(options.src);
 	options.dst = quoted_name(options.dst);
-	if (options.quality === undefined) imcmd = 'convert -background white -flatten ' + options.src + ' -resize '+options.width + 'x' + options.height + ' ' + options.dst;
-	else imcmd = 'convert -background white -flatten ' + options.src + ' -resize '+options.width + 'x' + options.height + ' -quality ' + options.quality + ' ' + options.dst;
+	if (options.quality === undefined) imcmd = 'convert ' + options.src + ' -background white -flatten  -resize '+options.width + 'x' + options.height + ' ' + options.dst;
+	else imcmd = 'convert ' + options.src + ' -background white -flatten  -resize '+options.width + 'x' + options.height + ' -quality ' + options.quality + ' ' + options.dst;
 	child = exec(imcmd, function(err, stdout, stderr) {
 		if (err) return callback(err);
 		info(options.dst, callback);
@@ -93,8 +93,8 @@ exports.crop = function(options, callback) {
 	options.src = quoted_name(options.src);
 	options.dst = quoted_name(options.dst);
 
-	if (options.quality === undefined) imcmd = 'convert -background white -flatten ' + options.src + ' -gravity ' + options.gravity + ' -crop '+ options.cropwidth + 'x'+ options.cropheight + '+' + options.x + '+' + options.y + ' ' + options.dst;
-	else  imcmd = 'convert -background white -flatten ' + options.src + ' -gravity ' + options.gravity + ' -crop '+ options.cropwidth + 'x'+ options.cropheight + '+' + options.x + '+' + options.y + ' -quality ' + options.quality + ' ' + options.dst;
+	if (options.quality === undefined) imcmd = 'convert ' + options.src + ' -background white -flatten  -gravity ' + options.gravity + ' -crop '+ options.cropwidth + 'x'+ options.cropheight + '+' + options.x + '+' + options.y + ' ' + options.dst;
+	else  imcmd = 'convert ' + options.src + ' -background white -flatten  -gravity ' + options.gravity + ' -crop '+ options.cropwidth + 'x'+ options.cropheight + '+' + options.x + '+' + options.y + ' -quality ' + options.quality + ' ' + options.dst;
 	child = exec(imcmd, function(err, stdout, stderr) {
 		if (err) return callback(err);
 		info(options.dst, callback);
@@ -117,8 +117,8 @@ exports.rescrop = function(options, callback) {
 	options.src = quoted_name(options.src);
 	options.dst = quoted_name(options.dst);
 	options.fill = options.fill ? '^' : '';
-	if (options.quality === undefined) imcmd = 'convert -background white -flatten ' + options.src + ' -resize ' + options.width + 'x' + options.height + options.fill + ' -gravity ' + options.gravity + ' -crop '+ options.cropwidth + 'x'+ options.cropheight + '+' + options.x + '+' + options.y + ' ' + options.dst;
-	else imcmd = 'convert -background white -flatten ' + options.src + ' -resize ' + options.width + 'x' + options.height + options.fill + ' -gravity ' + options.gravity + ' -crop '+ options.cropwidth + 'x'+ options.cropheight + '+' + options.x + '+' + options.y + ' -quality ' + options.quality + ' ' + options.dst;
+	if (options.quality === undefined) imcmd = 'convert ' + options.src + ' -background white -flatten  -resize ' + options.width + 'x' + options.height + options.fill + ' -gravity ' + options.gravity + ' -crop '+ options.cropwidth + 'x'+ options.cropheight + '+' + options.x + '+' + options.y + ' ' + options.dst;
+	else imcmd = 'convert ' + options.src + ' -background white -flatten  -resize ' + options.width + 'x' + options.height + options.fill + ' -gravity ' + options.gravity + ' -crop '+ options.cropwidth + 'x'+ options.cropheight + '+' + options.x + '+' + options.y + ' -quality ' + options.quality + ' ' + options.dst;
 	child = exec(imcmd, function(err, stdout, stderr) {
 		if (err) return callback(err);
 		info(options.dst, callback);
@@ -151,8 +151,8 @@ exports.thumbnail = function(options, callback) {
 		else if (original.height > original.width) { resizeheight = ''; }
 
 		// resize and crop
-		if (options.quality === undefined) imcmd = 'convert -background white -flatten ' + options.src + ' -resize ' + resizewidth + 'x' + resizeheight + ' -gravity ' + options.gravity + ' -crop '+ options.width + 'x'+ options.height + '+' + options.x + '+' + options.y + ' ' + options.dst;
-		else imcmd = 'convert -background white -flatten ' + options.src + ' -resize '+ resizewidth + 'x' + resizeheight + ' -quality ' + options.quality + ' -gravity ' + options.gravity + ' -crop '+ options.width + 'x'+ options.height + '+' + options.x + '+' + options.y + ' -quality ' + options.quality + ' ' + options.dst;
+		if (options.quality === undefined) imcmd = 'convert ' + options.src + ' -background white -flatten  -resize ' + resizewidth + 'x' + resizeheight + ' -gravity ' + options.gravity + ' -crop '+ options.width + 'x'+ options.height + '+' + options.x + '+' + options.y + ' ' + options.dst;
+		else imcmd = 'convert ' + options.src + ' -background white -flatten  -resize '+ resizewidth + 'x' + resizeheight + ' -quality ' + options.quality + ' -gravity ' + options.gravity + ' -crop '+ options.width + 'x'+ options.height + '+' + options.x + '+' + options.y + ' -quality ' + options.quality + ' ' + options.dst;
 
 		child = exec(imcmd, function(err, stdout, stderr) {
 			if (err) return callback(err);
